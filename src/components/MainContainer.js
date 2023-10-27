@@ -8,11 +8,11 @@
   -pass the portfolioStock to the PortfolioContainer
   -in the PortfolioContainer map through the portfolioStock array 
   -render it to the dom
-3. Allow a user to sell a stock in their Portfolio by clicking on the stock and it should be removed from their Portfolio.
+3. Allow a user to sell a stock in their Portfolio by clicking on the stock and it should be removed from their Portfolio.(done)
 
-4. Allow a user to sort the list of stocks alphabetically by the ticker name as well as by ascending price.
+4. Allow a user to sort the list of stocks alphabetically by the ticker name as well as by ascending price. (done)
 
-5. Allow a user to filter stocks based on the type of the stock.
+5. Allow a user to filter stocks based on the type of the stock.(done)
 */
 
 import React, {useState, useEffect} from "react";
@@ -23,6 +23,8 @@ import SearchBar from "./SearchBar";
 function MainContainer() {
   const [stocks, setStocks] = useState([])
   const [portfolioStock, setPortfolioStock] = useState([])
+  const [sortBy, setSortBy] = useState('')
+  const [stockType, setStockType] = useState('')
   useEffect(()=>{
     fetch('http://localhost:3001/stocks')
     .then(res => res.json())
@@ -31,12 +33,18 @@ function MainContainer() {
   const handleStockInPortfolio =(addStock)=>{
     setPortfolioStock(prevState => [...prevState, addStock])
   }
+  const handleToggleSort =(e)=>{
+    setSortBy(e.target.value)
+  }
+  const handleStockType =(e)=>{
+    setStockType(e.target.value)
+  }
   return (
     <div>
-      <SearchBar />
+      <SearchBar sortBy={sortBy} onToggleSort={handleToggleSort} onStockType={handleStockType} />
       <div className="row">
         <div className="col-8">
-          <StockContainer stocks={stocks} onStockInPortfolio={handleStockInPortfolio} />
+          <StockContainer stocks={stocks} sortBy={sortBy} stockType={stockType} onStockInPortfolio={handleStockInPortfolio}  />
         </div>
         <div className="col-4">
           <PortfolioContainer portfolioStock={portfolioStock} setPortfolioStock={setPortfolioStock}/>
