@@ -28,7 +28,7 @@ function MainContainer() {
     .then(res => res.json())
     .then(data => setStocks(data))
   }, [])
-  const handleAddStockToPortfolio =(addStock)=>{
+  const handleStockInPortfolio =(addStock)=>{
     setPortfolioStock(prevState => [...prevState, addStock])
   }
   return (
@@ -36,10 +36,10 @@ function MainContainer() {
       <SearchBar />
       <div className="row">
         <div className="col-8">
-          <StockContainer stocks={stocks} onAddStockToPortfolio={handleAddStockToPortfolio} />
+          <StockContainer stocks={stocks} onStockInPortfolio={handleStockInPortfolio} />
         </div>
         <div className="col-4">
-          <PortfolioContainer portfolioStock={portfolioStock}/>
+          <PortfolioContainer portfolioStock={portfolioStock} setPortfolioStock={setPortfolioStock}/>
         </div>
       </div>
     </div>
