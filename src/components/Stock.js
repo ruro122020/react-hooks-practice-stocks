@@ -1,12 +1,12 @@
 import React from "react";
 
-function Stock({name, price}) {
+function Stock({stock, onAddStockToPortfolio}) {
   return (
     <div>
-      <div className="card">
+      <div className="card" onClick={()=>{onAddStockToPortfolio(stock)}}>
         <div className="card-body">
-          <h5 className="card-title">{name}</h5>
-          <p className="card-text">{price}</p>
+          <h5 className="card-title">{stock.name}</h5>
+          <p className="card-text">{stock.price}</p>
         </div>
       </div>
     </div>
